@@ -57,7 +57,7 @@ const NotificationList = (newNotification) => {
   };
 
   return (
-    <div className="p-8">
+    
       <div className="notification-list max-w-lg mx-auto mt-7 ">
         {notifications.length === 0 ? (
           <p className="alert alert-info" role="alert">
@@ -67,12 +67,12 @@ const NotificationList = (newNotification) => {
           notifications.map((u) => (
             <div
               key={u._id}
-              className="list-group-item bg-white border rounded mb-2"
+              className="list-group-item bg-white border rounded mb-2 p-3"
             >
-              <h5 className="mb-1">{u.Room}</h5>
-              <p className="mb-1">{`a new message: ${u.messages}`}</p>
+              <h5 className="mb-1 text-2xl font-bold">{`Room Name: ${u.Room}`}</h5>
+              <p className="mb-1 text-xl">{`New message: ${u.messages}`}</p>
               <button
-                className="btn text-slate-100 bg-blue-700 btn-sm w-30 h-12 rounded-md"
+                className="btn p-1 text-slate-100 bg-blue-600 hover:bg-blue-900 btn-sm w-30 h-10 rounded-md"
                 onClick={() => markAsRead(u._id)}
               >
                 Mark as Read
@@ -81,7 +81,7 @@ const NotificationList = (newNotification) => {
           ))
         )}
       </div>
-    </div>
+  
   );
 };
 
