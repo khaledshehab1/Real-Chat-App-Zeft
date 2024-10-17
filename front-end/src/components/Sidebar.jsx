@@ -120,7 +120,7 @@ function Sidebar({ setCurrentRoom }) {
       {/* قسم النيتفوكيشن */}
       <div
         className="absolute bottom-16 left-4 flex items-center space-x-2 cursor-pointer group"
-        onClick={() => setShowNotificationModal(true)}
+        onClick={() => navigate(`/notifications`)}
       >
         <FiBell className="text-black text-2xl cursor-pointer group-hover:animate-spinAndMove group-hover:text-blue-600" />
         <span className="text-black font-semibold group-hover:animate-pushSettings delay-500 group-hover:text-blue-600 ">

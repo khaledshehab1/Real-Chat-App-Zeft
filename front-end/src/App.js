@@ -9,6 +9,7 @@ import Login from "./components/Login.js";
 import Contact from "./components/Contact.js";
 import Profile from "./components/Profile.js";
 import SetCode from "./components/SetCode";
+import Notification from "./components/Notification.jsx";
 import ForgotPassword from "./components/ForgotPassword";
 import ChangePassword from "./components/ChangePassword";
 import { Login_Context,Personel_context } from "./states/contexs.jsx"
@@ -67,6 +68,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/setcode" element={<SetCode />} />
           <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/notifications" element={<Notification/>} />
           <Route path="/adduser/:roomId/:roomname" element={<AddUser />} />
           <Route path="/Room/:roomid/:email/:roomname"  element={<Room />}/>
           <Route path="*" element={<Login/>} />

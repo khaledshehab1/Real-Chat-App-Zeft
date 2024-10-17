@@ -5,6 +5,7 @@ const socketio = require("socket.io");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const router = require("./Routes/Room.route");
+const NotifyRouter = require("./Routes/Notification.route.js");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./Routes/auth.js");
@@ -12,6 +13,9 @@ const { MongoClient } = require("mongodb");
 const rdb = require("../back-end/db/db.js");
 const Room = require("./db/Models/Room.model.js");
 const RoomModel = require("./db/Models/Room.model.js");
+const NotificationModel = require("./db/Models/notification.model.js");
+const notifyModel = require("./db/Models/notification.model.js");
+const { log } = require("console");
 
 dotenv.config();
 
@@ -59,6 +63,7 @@ app.use(cookieParser());
 // Routes
 app.use("/auth", authRoutes);
 app.use("/rooms", router);
+app.use("/notify", NotifyRouter);
 
 // Serve React app
 // const buildPath = path.join(__dirname, 'front-end', 'build');
@@ -89,7 +94,6 @@ io.on("connect", (socket) => {
   socket.on("join", async ({ roomid, email, callback }) => {
     console.log("someone is joined");
     try {
-
       console.log(roomid);
       console.log(email);
       const room = await Room.findById(roomid);
@@ -101,11 +105,8 @@ io.on("connect", (socket) => {
           socket.join(room);
           room.users.push(email);
           room.save();
-          
         }
-        
       }
-      
     } catch (error) {
       console.error("Error fetching room:", error);
       callback();
@@ -122,9 +123,34 @@ io.on("connect", (socket) => {
       room.messages.push({ message: text, sender: sender });
       room.save();
       socket.emit("message", { message: { text, sender }, change: Date.now() });
-      socket.broadcast.emit("update",{text:text, sender:sender});
+      socket.broadcast.emit("update", { text: text, sender: sender });
       console.log("message done");
+
+      socket.on("notify", async ({ roomname, roomid, text, sender }) => {
+        try {
+          // Create a new notification document
+          const notification = new notifyModel({
+            Room: roomname,
+            messages: text,
+            sender: sender,
+            isRead: false,
+          });
+
+          // Save the notification to the database
+          await notification.save();
+          console.log("note done");
+
+          console.log("Notification saved:", notification);
+        } catch (error) {
+          console.error("Error saving notification:", error);
+        }
+      });
     } catch (error) {}
+  });
+  socket.on("deleteNote", async ({ id }) => {
+    await notifyModel.findByIdAndDelete(id);
+
+    console.log("delete done");
   });
 });
 
