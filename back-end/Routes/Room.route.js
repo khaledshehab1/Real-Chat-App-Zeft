@@ -51,10 +51,10 @@ const AuthMiddleware = async (req, res, next) => {
 };
 // Verify that the imported functions are correct
 console.log(deleteRoom, updateRoom, AddRoom, getAllRooms, getRoom);
-router.get("/getallrooms",  getAllRooms);
+router.get("/getallrooms", getAllRooms);
 router.get("/room/:id", getRoom);
-router.post("/addRoom/:name/:users",  AddRoom);
-router.patch("/updateRoom", updateRoom);
+router.post("/addRoom/:name/:users", AddRoom);
+router.patch("/updateRoom/:id/:user", updateRoom);
 router.delete("/deleteRoom/:id", AuthMiddleware, deleteRoom);
 
 module.exports = router;

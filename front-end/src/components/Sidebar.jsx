@@ -115,7 +115,7 @@ function Sidebar({ setCurrentRoom }) {
         ) : (
           <div>No chats available</div>
         )}
-              
+        
       </div>{" "}
       {/* قسم النيتفوكيشن */}
       <div
@@ -151,10 +151,7 @@ function Sidebar({ setCurrentRoom }) {
         />
       )}
       {/* عرض مودال إنشاء الغرف */}
-      {showCreateRoomModal && (
-        <CreateRoomModal closeModal={() => setShowCreateRoomModal(false)} />
-      )}
-      {showAddUser && <AddUser closeModal={() => setshowAddUser(false)} />}
+      {showCreateRoomModal && (<CreateRoomModal closeModal={() => setShowCreateRoomModal(false)} />)}
     </div>
   );
 }

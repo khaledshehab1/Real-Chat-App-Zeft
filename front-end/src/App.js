@@ -67,7 +67,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/setcode" element={<SetCode />} />
           <Route path="/changepassword" element={<ChangePassword />} />
-          <Route path="/adduser/:roomId" element={<AddUser />} />
+          <Route path="/adduser/:roomId/:roomname" element={<AddUser />} />
           <Route path="/Room/:roomid/:email/:roomname"  element={<Room />}/>
           <Route path="*" element={<Login/>} />
         </Routes>

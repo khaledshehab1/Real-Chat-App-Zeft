@@ -43,12 +43,27 @@ exports.AddRoom = async (req, res) => {
 };
 
 exports.updateRoom = async (req, res) => {
-  const { id } = req.params;
-  const updateRoom = req.body;
-  const room = await RoomModel.findById(id);
-  room = updateRoom;
-};
+  try {
+    const { id, user } = req.params;
 
+    // Find the room by id
+    const room = await RoomModel.findById(id);
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    // Add the new user(s) to the users array
+    room.users.push(user);
+
+    // Save the updated room
+    await room.save();
+
+    res.status(200).json(room);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 exports.deleteRoom = async (req, res) => {
   const { id } = req.params;
   try {
