@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FiUser } from "react-icons/fi";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoMdLogOut } from "react-icons/io";
 import { LuPenLine } from "react-icons/lu";
 import { ToastContainer, toast } from "react-toastify";
+import { Personel_context } from "../states/contexs";
 import "react-toastify/dist/ReactToastify.css";
 
 function SettingsModal({ closeSettings, onLogout }) {
+  var { Personel, setPersonel } = useContext(Personel_context);
   const [view, setView] = useState("options");
   const [profileImage, setProfileImage] = useState(
     "https://via.placeholder.com/80"
@@ -174,7 +176,7 @@ function SettingsModal({ closeSettings, onLogout }) {
               </div>
               <div className="ml-0 sm:ml-4 mt-4 sm:mt-0 text-center sm:text-left">
                 <h2 className="text-xl font-semibold">{name}</h2>
-                <p className="text-gray-500">{email}</p>
+                <p className="text-gray-500">{Personel.email}</p>
               </div>
             </div>
 
@@ -184,15 +186,6 @@ function SettingsModal({ closeSettings, onLogout }) {
               placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-
-            <label className="block mb-2 text-lg">Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-2 mb-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 

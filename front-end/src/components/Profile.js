@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import { Personel_context } from "../states/contexs";
 function Profile() {
   const [name, setName] = useState("Khaled Shehab");
   const [introduction, setIntroduction] = useState("I am React Web Developer");
   const [image, setImage] = useState("path_to_profile_image");
+
 
   // Load saved data from localStorage when the component mounts
   useEffect(() => {
