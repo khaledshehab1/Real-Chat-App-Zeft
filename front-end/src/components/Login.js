@@ -55,7 +55,7 @@ const Login = () => {
     // }
 
     try {
-      console.log(loginPassword)
+      console.log(loginPassword);
       const response = await fetch(`${url}/auth/login`, {
         method: "POST",
         headers: {
@@ -69,12 +69,9 @@ const Login = () => {
       });
 
       const data = await response.json();
-      if (data.verify)
-        {
-
-
-          navigateFun("/vertaction")
-        }
+      if (data.verify) {
+        navigateFun("/vertaction");
+      }
       if (data.showError) {
         setLoginError(`${data.title}\n${data.message}`);
         return;
@@ -112,7 +109,7 @@ const Login = () => {
               <input
                 id="email"
                 name="email"
-                type="email"
+                type="text"
                 autoComplete="email"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -157,12 +154,12 @@ const Login = () => {
           )}
 
           <div className="flex items-center justify-between">
-          <NavLink
-                to="/ForgotPassword"
-                className="font-medium text-blue-600 hover:text-blue-500"
-              >
-                Forgot Password?
-              </NavLink>
+            <NavLink
+              to="/ForgotPassword"
+              className="font-medium text-blue-600 hover:text-blue-500"
+            >
+              Forgot Password?
+            </NavLink>
           </div>
 
           <div>
