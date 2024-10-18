@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';  // Import the styles for toastify
+import "react-toastify/dist/ReactToastify.css"; // Import the styles for toastify
 
 const ForgotPassword = () => {
   const navigateFun = useNavigate();
@@ -32,13 +32,13 @@ const ForgotPassword = () => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="email" className="font-bold ml-1"> 
+              <label htmlFor="email" className="font-bold ml-1">
                 Email:
               </label>
               <input
                 id="email"
                 name="email"
-                type="email"
+                type="text"
                 autoComplete="email"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"

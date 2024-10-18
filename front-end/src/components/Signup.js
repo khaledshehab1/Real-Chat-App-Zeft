@@ -1,7 +1,10 @@
 import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Login_Context, Personel_context } from "../states/contexs.jsx"; // Make sure these contexts are properly exported
-import Message from "./warning.jsx";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import the styles for toastify
+
+// import Message from "./warning.jsx";
 import { verify } from "../states/contexs.jsx";
 const url = "http://localhost:3003";
 
@@ -33,7 +36,7 @@ const Signup = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const { setPersonel } = useContext(Personel_context);
-  const {verify_info,set_verify_info } = useContext(verify);
+  const { verify_info, set_verify_info } = useContext(verify);
 
   const navigate = useNavigate(); // Use navigate for redirection
 
@@ -47,7 +50,8 @@ const Signup = () => {
     e.preventDefault();
 
     if (!validateEmail(signupEmail)) {
-      alert("Please enter a valid email address.");
+      toast.error("Please enter a valid Email!"); // Error toast
+      // alert("Please enter a valid email address.");
       return;
     }
 
@@ -77,17 +81,18 @@ const Signup = () => {
 
       const data = await response.json();
       if (data.showError) {
-        alert(`${data.title}\n${data.message}`);
+        toast.error(`${data.title}\n${data.message}`);
+        // alert(`${data.title}\n${data.message}`);
         return;
       }
 
       if (data.auth) {
         navigate("/vertaction");
-        set_verify_info({email:signupEmail});
+        set_verify_info({ email: signupEmail });
       }
 
       setPersonel(data);
-           console.log(data)
+      console.log(data);
       // Clear form inputs after successful signup
       setSignupEmail("");
       setSignupPassword("");
@@ -96,7 +101,8 @@ const Signup = () => {
       setConfirmPasswordError("");
     } catch (error) {
       console.error("Error during signup:", error);
-      alert("Signup failed. Please try again.");
+      toast.error("Signup failed. Please try again.");
+      // alert("Signup failed. Please try again.");
     }
   };
 
@@ -113,7 +119,7 @@ const Signup = () => {
   return (
     <div className="flex h-screen">
       {/* Left side - Welcome message */}
-      <div className="w-1/2 bg-gradient-to-b from-blue-900 to-black flex items-center justify-center relative">
+      <div className="hidden md:flex w-1/2 bg-gradient-to-b from-blue-900 to-black items-center justify-center relative">
         <div className="text-white text-center">
           <div className="absolute top-0 left-0 text-white text-2xl font-bold m-3">
             chat<span className="text-blue-300">app</span>
@@ -128,16 +134,18 @@ const Signup = () => {
       </div>
 
       {/* Right side - Sign up form */}
-      <div className="w-1/2 flex items-center justify-center">
+      <div className="w-full md:w-1/2 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg w-96">
           <h2 className="text-2xl font-semibold mb-6">Create an account</h2>
           <form onSubmit={handleSignupSubmit}>
             <div className="mb-4">
-              <label className="block text-gray-700 font-bold ml-1">Email:</label>
+              <label className="block text-gray-700 font-bold ml-1">
+                Email:
+              </label>
               <input
                 id="email"
                 name="email"
-                type="email"
+                type="text"
                 autoComplete="email"
                 required
                 className="w-full p-2 border border-gray-300 rounded mt-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -148,7 +156,9 @@ const Signup = () => {
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-bold ml-1">Password:</label>
+              <label className="block text-gray-700 font-bold ml-1">
+                Password:
+              </label>
               <input
                 id="password"
                 name="password"
@@ -174,7 +184,9 @@ const Signup = () => {
             )}
 
             <div className="mb-6">
-              <label className="block text-gray-700 font-bold ml-1">Confirm Password:</label>
+              <label className="block text-gray-700 font-bold ml-1">
+                Confirm Password:
+              </label>
               <input
                 id="confirmPassword"
                 name="confirmPassword"
@@ -186,7 +198,9 @@ const Signup = () => {
                 onChange={handleConfirmPasswordChange}
               />
               {confirmPasswordError && (
-                <p className="text-red-500 text-sm mt-2">{confirmPasswordError}</p>
+                <p className="text-red-500 text-sm mt-2">
+                  {confirmPasswordError}
+                </p>
               )}
             </div>
 
@@ -205,6 +219,7 @@ const Signup = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
